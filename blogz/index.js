@@ -4,17 +4,9 @@ const path = require("path");
 const { spawn } = require("child_process");
 const WebSocket = require("ws");
 
-// ── Edit these defaults if env vars aren't available.       ──
-// ── Otherwise set LOGZ_DIR / LOGZ_CHROMIUM_PATH /           ──
-// ── LOGZ_CHROMIUM_DATA_DIR env vars.                        ──
-const DEFAULT_LOG_DIR = "./logz-data";
-const DEFAULT_CHROMIUM_PATH = "chrome";
-const DEFAULT_CHROMIUM_DATA_DIR = "./blogz-profiles";
-// ─────────────────────────────────────────────────────────────
-
-const LOG_DIR = process.env.LOGZ_DIR || DEFAULT_LOG_DIR;
-const CHROMIUM_PATH = process.env.LOGZ_CHROMIUM_PATH || DEFAULT_CHROMIUM_PATH;
-const CHROMIUM_DATA_DIR = process.env.LOGZ_CHROMIUM_DATA_DIR || DEFAULT_CHROMIUM_DATA_DIR;
+const LOG_DIR = "D:/var/logz";
+const BRAVE_PATH = "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe";
+const BRAVE_DATA_DIR = "d:/src/_logz/data";
 
 const CDP_DOMAINS = [
   "Network.enable",
@@ -136,33 +128,33 @@ async function main() {
   if (!n || n < 1 || n > 9) {
     console.error(
       "Usage: node index.js <1-9>\n\n" +
-        "  Launches Chromium with --remote-debugging-port=922N\n" +
-        "  and --user-data-dir=./blogz-profiles/browserN\n" +
+        "  Launches Brave with --remote-debugging-port=922N\n" +
+        "  and --user-data-dir=d:/src/_logzd/data/braveN\n" +
         "  then connects and logs all CDP messages.\n\n" +
         "  Example: node index.js 3\n" +
-        "    -> port 9223, data dir browser3\n"
+        "    -> port 9223, data dir brave3\n"
     );
     process.exit(1);
   }
 
   const port = 9220 + n;
-  const userDataDir = path.join(CHROMIUM_DATA_DIR, `browser${n}`);
+  const userDataDir = path.join(BRAVE_DATA_DIR, `brave${n}`);
   const logFile = path.join(LOG_DIR, `log-browser-${port}.txt`);
 
   console.log(`blogz - CDP logger`);
-  console.log(`Instance: browser${n}`);
+  console.log(`Instance: brave${n}`);
   console.log(`Port:     ${port}`);
   console.log(`Data:     ${userDataDir}`);
   console.log(`Log:      ${logFile}`);
   console.log();
 
-  // Launch browser
+  // Launch Brave
   const args = [
     `--remote-debugging-port=${port}`,
     `--user-data-dir=${userDataDir}`,
   ];
-  console.log(`> "${CHROMIUM_PATH}" ${args.join(" ")}`);
-  const child = spawn(CHROMIUM_PATH, args, { stdio: "ignore" });
+  console.log(`> "${BRAVE_PATH}" ${args.join(" ")}`);
+  const child = spawn(BRAVE_PATH, args, { stdio: "ignore" });
 
   // Wait for browser to start
   console.log(`Waiting for browser to start...\n`);

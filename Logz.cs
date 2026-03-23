@@ -10,17 +10,10 @@ using System.Threading.Tasks;
 
 public static class Logz
 {
-    // ── Edit these defaults if env vars aren't available (e.g. containers, ──
-    // ── remote hosts, or embedded scenarios). Otherwise set LOGZ_HOST /    ──
-    // ── LOGZ_PORT env vars.                                                ──
-    private const string DefaultHost = "127.0.0.1";
-    private const int DefaultPort = 12345;
-    // ────────────────────────────────────────────────────────────────────────
-
     private static readonly string ServerHost =
-        Environment.GetEnvironmentVariable("LOGZ_HOST") ?? DefaultHost;
+        Environment.GetEnvironmentVariable("LOGZ_HOST") ?? "127.0.0.1";
     private static readonly int ServerPort =
-        int.TryParse(Environment.GetEnvironmentVariable("LOGZ_PORT"), out var p) ? p : DefaultPort;
+        int.TryParse(Environment.GetEnvironmentVariable("LOGZ_PORT"), out var p) ? p : 12345;
     private static readonly string Hostname = Dns.GetHostName();
 
     private static readonly BlockingCollection<(string Src, string Message)> LogQueue =

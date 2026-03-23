@@ -77,13 +77,7 @@ _ = Task.Run(async () =>
     }
 });
 
-// ── Edit these defaults if env vars aren't available.            ──
-// ── Otherwise set LOGZ_PORT / LOGZ_FILE env vars.               ──
-const int DefaultPort = 12345;
-const string DefaultLogFile = "logz.log";
-// ─────────────────────────────────────────────────────────────────
-
-var PORT = int.TryParse(Environment.GetEnvironmentVariable("LOGZ_PORT"), out var ep) ? ep : DefaultPort;
+const int PORT = 12345;
 var listener = new TcpListener(IPAddress.Any, PORT);
 listener.Start();
 
@@ -159,7 +153,7 @@ async Task HandleClientAsync(TcpClient client, ChannelWriter<(string, string, st
     }
 }
 
-var logFile = Environment.GetEnvironmentVariable("LOGZ_FILE") ?? DefaultLogFile;
+var logFile = Environment.GetEnvironmentVariable("LOGZ_FILE") ?? "logz.log";
 
 void AppendToLogFile(string message)
 {

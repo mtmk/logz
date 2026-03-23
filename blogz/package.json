@@ -1,0 +1,12 @@
+{
+  "name": "blogz",
+  "version": "1.0.0",
+  "description": "Capture Chrome DevTools Protocol (CDP) WebSocket traffic and log to file",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

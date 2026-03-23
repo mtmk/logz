@@ -7,7 +7,8 @@ import (
 	"time"
 )
 
-// ── Edit this default or set LOGZ_ADDR env var ──
+// ── Edit this default if env vars aren't available (e.g. containers, ──
+// ── remote hosts). Otherwise set LOGZ_ADDR env var.                  ──
 const defaultAddr = "127.0.0.1:12345"
 
 // Log sends a message to the logzd TCP server.

@@ -10,12 +10,8 @@ import (
 	"time"
 )
 
-// ── Edit this default if env vars aren't available (e.g. containers, ──
-// ── remote hosts). Otherwise set LOGZ_ADDR env var.                  ──
-const defaultAddr = "127.0.0.1:12345"
-
 var (
-	serverAddr = getEnvOrDefault("LOGZ_ADDR", defaultAddr)
+	serverAddr = getEnvOrDefault("LOGZ_ADDR", "127.0.0.1:12345")
 	hostname   string
 	logChan    = make(chan logEntry, 1000)
 	once       sync.Once
