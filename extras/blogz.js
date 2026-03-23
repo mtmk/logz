@@ -4,9 +4,15 @@ const path = require("path");
 const { spawn } = require("child_process");
 const WebSocket = require("ws");
 
-const LOG_DIR = process.env.LOGZ_DIR || "./logz-data";
-const CHROMIUM_PATH = process.env.LOGZ_CHROMIUM_PATH || "chrome";
-const CHROMIUM_DATA_DIR = process.env.LOGZ_CHROMIUM_DATA_DIR || "./blogz-profiles";
+// ── Edit these defaults or set env vars ──────────────────────
+const DEFAULT_LOG_DIR = "./logz-data";
+const DEFAULT_CHROMIUM_PATH = "chrome";
+const DEFAULT_CHROMIUM_DATA_DIR = "./blogz-profiles";
+// ─────────────────────────────────────────────────────────────
+
+const LOG_DIR = process.env.LOGZ_DIR || DEFAULT_LOG_DIR;
+const CHROMIUM_PATH = process.env.LOGZ_CHROMIUM_PATH || DEFAULT_CHROMIUM_PATH;
+const CHROMIUM_DATA_DIR = process.env.LOGZ_CHROMIUM_DATA_DIR || DEFAULT_CHROMIUM_DATA_DIR;
 
 const CDP_DOMAINS = [
   "Network.enable",

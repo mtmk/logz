@@ -1,8 +1,13 @@
 import * as net from 'net'
 import * as os from 'os'
 
-const SERVER_HOST = process.env.LOGZ_HOST ?? '127.0.0.1'
-const SERVER_PORT = parseInt(process.env.LOGZ_PORT ?? '12345', 10)
+// ── Edit these defaults or set LOGZ_HOST / LOGZ_PORT env vars ──
+const DEFAULT_HOST = '127.0.0.1'
+const DEFAULT_PORT = 12345
+// ────────────────────────────────────────────────────────────────
+
+const SERVER_HOST = process.env.LOGZ_HOST ?? DEFAULT_HOST
+const SERVER_PORT = parseInt(process.env.LOGZ_PORT ?? String(DEFAULT_PORT), 10)
 const HOSTNAME = os.hostname()
 
 type QueueEntry = { srcLine: string; message: string }

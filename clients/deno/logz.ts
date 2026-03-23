@@ -1,5 +1,10 @@
-const LOGZ_HOST = Deno.env.get("LOGZ_HOST") ?? "127.0.0.1"
-const LOGZ_PORT = parseInt(Deno.env.get("LOGZ_PORT") ?? "12345", 10)
+// ── Edit these defaults or set LOGZ_HOST / LOGZ_PORT env vars ──
+const DEFAULT_HOST = "127.0.0.1"
+const DEFAULT_PORT = 12345
+// ────────────────────────────────────────────────────────────────
+
+const LOGZ_HOST = Deno.env.get("LOGZ_HOST") ?? DEFAULT_HOST
+const LOGZ_PORT = parseInt(Deno.env.get("LOGZ_PORT") ?? String(DEFAULT_PORT), 10)
 
 export async function logz(source: string, message: string): Promise<void> {
   console.log(`[logz] attempting to send: ${source} - ${message}`)
