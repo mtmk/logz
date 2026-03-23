@@ -1,7 +1,9 @@
 import datetime
 from mitmproxy import http
 
-LOG_FILE = r"D:\var\logz\requests.log"
+import os
+# ── Edit this default or set LOGZ_MITMPROXY_FILE env var ──
+LOG_FILE = os.environ.get("LOGZ_MITMPROXY_FILE", "mitmproxy-requests.log")
 
 
 def request(flow: http.HTTPFlow):

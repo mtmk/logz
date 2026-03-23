@@ -122,6 +122,32 @@ Claude Code can then:
 
 No MCP server or special integration needed — it's just a file and a log.
 
+## Extras
+
+The `extras/` folder has additional tools for capturing traffic from browsers and HTTP proxies:
+
+### mitmproxy addon (`extras/mitmproxy_log_addon.py`)
+
+Logs all HTTP requests and responses (method, URL, headers, body) to a file. Use with [mitmproxy](https://mitmproxy.org/) to capture traffic from any application:
+
+```bash
+# Install mitmproxy: https://docs.mitmproxy.org/stable/overview-installation/
+mitmproxy -s extras/mitmproxy_log_addon.py
+```
+
+Configure your app to use `http://localhost:8080` as its proxy. All traffic is logged to `mitmproxy-requests.log` (configurable via `LOGZ_MITMPROXY_FILE` env var).
+
+### Browser CDP logger (`extras/blogz.js`)
+
+Launches a Chromium-based browser with remote debugging enabled and captures network traffic, console output, and page events via the [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/). Useful for debugging web apps where you need to see exactly what the browser is doing:
+
+```bash
+cd extras && npm install && node blogz.js 1
+# Launches browser instance 1 on debug port 9221
+```
+
+Set `LOGZ_CHROMIUM_PATH` to your browser executable (Chrome, Edge, Brave, etc.).
+
 ## Design choices
 
 - **Single-file clients** — no package managers, no transitive dependencies. Copy and use.
