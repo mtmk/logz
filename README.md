@@ -99,6 +99,29 @@ __END__\n
 
 If a message line contains `__END__`, it's escaped as `__END____END__`.
 
+## Usage with Claude Code
+
+Add this to your project's `CLAUDE.md` so Claude knows how to use logz for debugging:
+
+```markdown
+## Debugging with logz
+Drop-in TCP log sink for cross-process debugging. Repo: https://github.com/mtmk/logz
+- Server: clone the repo and run `dotnet run server/logzd.cs` (listens on port 12345, writes to logz.log)
+- .NET: Copy `clients/dotnet/Logz.cs` into project, use `Logz.Log("SRC", "message")`
+- Go: Copy `clients/go/logz.go` into project, use `logz.Log("SRC", "message")`
+- TypeScript: Copy `clients/typescript/logz.ts`, use `logz("SRC", "message")`
+- Logs collected in logz.log — read this file to check trace output
+- Edit defaults at top of client file if env vars aren't available
+```
+
+Claude Code can then:
+- Copy the right client file into your project when you need trace logging
+- Add `Logz.Log` calls to instrument code paths you're debugging
+- Read `logz.log` to analyze what happened
+- Use `Logz.WatchAsync` to find hangs and `Logz.InstallCrashHandler` to catch crashes
+
+No MCP server or special integration needed — it's just a file and a log.
+
 ## Design choices
 
 - **Single-file clients** — no package managers, no transitive dependencies. Copy and use.
