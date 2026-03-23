@@ -6,6 +6,8 @@ This is a **reference implementation** — the idea matters more than the code. 
 
 Drop a single file into your project, run the server, see logs from all your services in one place. No dependencies, no setup, no packages to install.
 
+**This is a development-time tool.** It's designed for debugging on your local machine or dev environment — not for production logging. There's no authentication, no TLS, no guaranteed delivery. For production, use proper observability tools like Grafana Loki, OpenTelemetry, or ELK.
+
 ## Why
 
 When debugging across multiple processes or languages (Go service + .NET client + TypeScript UI), you need one place to see what's happening. `logz` is a TCP server that collects log lines from any language and writes them to a file and console. Clients are single files with zero dependencies — copy one into your project and start logging.
