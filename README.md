@@ -17,8 +17,8 @@ When debugging across multiple processes or languages (Go service + .NET client 
 ### 1. Run the server
 
 ```bash
-# Requires .NET 8+ SDK
-dotnet run --project server/logzd.cs
+# Requires .NET 10+ SDK (uses C# file-based execution)
+dotnet run server/logzd.cs
 ```
 
 The server listens on port `12345`, prints logs to console with color coding, and appends to `logz.log` (configurable via `LOGZ_FILE` env var). Type a filter keyword to show only matching lines, press Enter to clear.
