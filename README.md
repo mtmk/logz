@@ -2,6 +2,8 @@
 
 Dead-simple cross-language TCP log sink for debugging distributed systems.
 
+This is a **reference implementation** — the idea matters more than the code. The protocol is intentionally simple so you (or an AI coding assistant) can write a client in any language in minutes. The clients here are examples; adapt or rewrite them however you like.
+
 Drop a single file into your project, run the server, see logs from all your services in one place. No dependencies, no setup, no packages to install.
 
 ## Why
@@ -98,6 +100,30 @@ __END__\n
 ```
 
 If a message line contains `__END__`, it's escaped as `__END____END__`.
+
+### UDP (no client needed)
+
+The server doesn't support UDP yet, but the protocol is simple enough that you don't even need a client library. For single-line messages, just send a UDP packet — no `__END__` framing required since each packet is one message:
+
+```bash
+# Bash — no dependencies at all
+echo "$(date +%H:%M:%S) $(hostname) MY-SRC some debug message" | nc -u -w0 127.0.0.1 12345
+```
+
+```python
+# Python — stdlib only
+import socket, time, platform
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.sendto(f"{time.strftime('%H:%M:%S')} {platform.node()} MY-SRC hello from python".encode(), ("127.0.0.1", 12345))
+```
+
+```powershell
+# PowerShell
+$b = [Text.Encoding]::UTF8.GetBytes("$(Get-Date -f HH:mm:ss) $env:COMPUTERNAME MY-SRC hello from powershell")
+(New-Object Net.Sockets.UdpClient).Send($b, $b.Length, "127.0.0.1", 12345)
+```
+
+This is the "just get a message out" escape hatch — works from any language, any environment, zero setup. Adding UDP support to the server is a straightforward extension left as an exercise (or ask your AI assistant to do it).
 
 ## Usage with Claude Code
 
