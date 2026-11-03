@@ -1,0 +1,7 @@
+*.log
+data/
+logz-data/
+blogz-profiles/
+mitmproxy-logs/
+extras/node_modules/
+__pycache__/
